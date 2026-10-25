@@ -11,6 +11,7 @@ import {
   deleteImage,
   deleteSubmission,
   saveImage,
+  StorageNotConnectedError,
   writeStoredContent,
 } from "@/lib/storage";
 
@@ -58,6 +59,19 @@ async function save(content: SiteContent) {
   updateTag(CONTENT_TAG);
 }
 
+/** Runs the saving part of a form, turning storage failures into a message instead of an error page. */
+async function attempt(work: () => Promise<void>): Promise<string | undefined> {
+  try {
+    await work();
+  } catch (err) {
+    console.error(err);
+    if (err instanceof StorageNotConnectedError) {
+      return "Saving isn't set up yet: the Blob storage isn't connected to this site in Vercel. Connect it, then redeploy.";
+    }
+    return "Something went wrong while saving. Please try again in a minute.";
+  }
+}
+
 // ---------- Login ----------
 
 export async function login(_: FormState, form: FormData): Promise<FormState> {
@@ -98,33 +112,36 @@ export async function saveEvent(_: FormState, form: FormData): Promise<FormState
   const existing = id ? content.events.find((e) => e.id === id) : undefined;
   if (id && !existing) return { error: "This event was deleted by someone else." };
 
-  let image = existing?.image;
-  let replacedImage: string | undefined;
-  if (file) {
-    replacedImage = image;
-    image = await saveImage(file);
-  } else if (form.get("removeImage") === "on") {
-    replacedImage = image;
-    image = undefined;
-  }
+  const error = await attempt(async () => {
+    let image = existing?.image;
+    let replacedImage: string | undefined;
+    if (file) {
+      replacedImage = image;
+      image = await saveImage(file);
+    } else if (form.get("removeImage") === "on") {
+      replacedImage = image;
+      image = undefined;
+    }
 
-  const event: EventItem = {
-    id: existing?.id ?? newId(title),
-    title,
-    date,
-    location,
-    description,
-    ...(form.get("repeatsWeekly") === "on" && { repeatsWeekly: true }),
-    ...(time && { time }),
-    ...(image && { image }),
-    ...(registrationUrl && { registrationUrl }),
-  };
-  const events = existing
-    ? content.events.map((e) => (e.id === event.id ? event : e))
-    : [...content.events, event];
+    const event: EventItem = {
+      id: existing?.id ?? newId(title),
+      title,
+      date,
+      location,
+      description,
+      ...(form.get("repeatsWeekly") === "on" && { repeatsWeekly: true }),
+      ...(time && { time }),
+      ...(image && { image }),
+      ...(registrationUrl && { registrationUrl }),
+    };
+    const events = existing
+      ? content.events.map((e) => (e.id === event.id ? event : e))
+      : [...content.events, event];
 
-  await save({ ...content, events });
-  await deleteImage(replacedImage);
+    await save({ ...content, events });
+    await deleteImage(replacedImage);
+  });
+  if (error) return { error };
   redirect("/admin");
 }
 
@@ -162,38 +179,41 @@ export async function saveArticle(_: FormState, form: FormData): Promise<FormSta
   const existing = id ? content.articles.find((a) => a.id === id) : undefined;
   if (id && !existing) return { error: "This article was deleted by someone else." };
 
-  let cover = existing?.cover;
-  let replacedImage: string | undefined;
-  if (file) {
-    replacedImage = cover;
-    cover = await saveImage(file);
-  } else if (form.get("removeImage") === "on") {
-    replacedImage = cover;
-    cover = undefined;
-  }
+  const error = await attempt(async () => {
+    let cover = existing?.cover;
+    let replacedImage: string | undefined;
+    if (file) {
+      replacedImage = cover;
+      cover = await saveImage(file);
+    } else if (form.get("removeImage") === "on") {
+      replacedImage = cover;
+      cover = undefined;
+    }
 
-  // Keep the link stable once created; make new ones unique.
-  let slug = existing?.slug ?? slugify(title);
-  if (!existing && content.articles.some((a) => a.slug === slug)) slug = `${slug}-${randomUUID().slice(0, 4)}`;
+    // Keep the link stable once created; make new ones unique.
+    let slug = existing?.slug ?? slugify(title);
+    if (!existing && content.articles.some((a) => a.slug === slug)) slug = `${slug}-${randomUUID().slice(0, 4)}`;
 
-  const article: Article = {
-    id: existing?.id ?? newId(title),
-    slug,
-    title,
-    summary,
-    body,
-    date,
-    published,
-    ...(author && { author }),
-    ...(cover && { cover }),
-    ...(videoUrl && { videoUrl }),
-  };
-  const articles = existing
-    ? content.articles.map((a) => (a.id === article.id ? article : a))
-    : [...content.articles, article];
+    const article: Article = {
+      id: existing?.id ?? newId(title),
+      slug,
+      title,
+      summary,
+      body,
+      date,
+      published,
+      ...(author && { author }),
+      ...(cover && { cover }),
+      ...(videoUrl && { videoUrl }),
+    };
+    const articles = existing
+      ? content.articles.map((a) => (a.id === article.id ? article : a))
+      : [...content.articles, article];
 
-  await save({ ...content, articles });
-  await deleteImage(replacedImage);
+    await save({ ...content, articles });
+    await deleteImage(replacedImage);
+  });
+  if (error) return { error };
   redirect("/admin/articles");
 }
 
@@ -227,9 +247,12 @@ export async function addPhoto(_: FormState, form: FormData): Promise<FormState>
   const date = text(form, "date") || todayInDmv();
   if (!isDate(date)) return { error: "Please pick a valid date." };
 
-  const content = await loadContent();
-  const photo: GalleryItem = { id: newId(caption), src: await saveImage(file), caption, date };
-  await save({ ...content, gallery: [...content.gallery, photo] });
+  const error = await attempt(async () => {
+    const content = await loadContent();
+    const photo: GalleryItem = { id: newId(caption), src: await saveImage(file), caption, date };
+    await save({ ...content, gallery: [...content.gallery, photo] });
+  });
+  if (error) return { error };
   return { saved: true, savedAt: Date.now() };
 }
 
@@ -273,7 +296,10 @@ export async function saveSettings(_: FormState, form: FormData): Promise<FormSt
     if (!isLink(value)) return { error: `The ${label} link should start with https://` };
   }
 
-  const content = await loadContent();
-  await save({ ...content, settings });
+  const error = await attempt(async () => {
+    const content = await loadContent();
+    await save({ ...content, settings });
+  });
+  if (error) return { error };
   return { saved: true };
 }

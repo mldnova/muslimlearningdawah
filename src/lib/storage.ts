@@ -12,6 +12,17 @@ import type { Submission } from "@/lib/content-types";
  */
 const useBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 
+/** Thrown when the site runs on Vercel without a Blob store connected (its disk is read-only). */
+export class StorageNotConnectedError extends Error {
+  constructor() {
+    super("BLOB_READ_WRITE_TOKEN is missing — connect the Blob store to this Vercel project and redeploy.");
+  }
+}
+
+function assertWritable() {
+  if (!useBlob && process.env.VERCEL) throw new StorageNotConnectedError();
+}
+
 const CONTENT_PREFIX = "content/site-";
 /** Every save writes a new file; older ones are kept as backups, up to this many. */
 const KEEP_VERSIONS = 20;
@@ -57,6 +68,7 @@ export async function writeStoredContent(content: unknown) {
     return;
   }
 
+  assertWritable();
   await mkdir(path.dirname(localContentFile), { recursive: true });
   await writeFile(localContentFile, body);
 }
@@ -82,6 +94,7 @@ export async function saveImage(file: File): Promise<string> {
     return blob.url;
   }
 
+  assertWritable();
   await mkdir(localUploadDir, { recursive: true });
   await writeFile(path.join(localUploadDir, name), Buffer.from(await file.arrayBuffer()));
   return `/uploads/${name}`;
@@ -129,6 +142,7 @@ export async function saveSubmission(submission: Submission) {
     });
     return;
   }
+  assertWritable();
   await mkdir(localSubmissionDir, { recursive: true });
   await writeFile(path.join(localSubmissionDir, name), body);
 }

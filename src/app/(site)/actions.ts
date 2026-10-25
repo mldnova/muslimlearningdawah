@@ -11,7 +11,7 @@ const MAX_LENGTH = 5000;
 export async function submitForm(
   kind: SubmissionKind,
   fields: Record<string, string>,
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{ ok: boolean; error?: string; saveFailed?: boolean }> {
   if (!(kind in submissionKinds)) return { ok: false, error: "This form isn't recognised." };
 
   const clean: Record<string, string> = {};
@@ -22,6 +22,12 @@ export async function submitForm(
   }
   if (Object.keys(clean).length === 0) return { ok: false, error: "Please fill in the form first." };
 
-  await saveSubmission({ id: randomUUID(), kind, receivedAt: new Date().toISOString(), fields: clean });
+  try {
+    await saveSubmission({ id: randomUUID(), kind, receivedAt: new Date().toISOString(), fields: clean });
+  } catch (err) {
+    console.error(err);
+    // The form still emails the team, so the message isn't lost.
+    return { ok: false, saveFailed: true };
+  }
   return { ok: true };
 }

@@ -52,18 +52,27 @@ export function SiteForm({
     const byLabel: Record<string, string> = {};
     for (const field of fields) byLabel[field.label] = String(data.get(field.name) ?? "");
 
-    const saved = await submitForm(kind, byLabel).catch(() => ({ ok: false, error: undefined }));
-    if (!saved.ok) {
+    const saved = await submitForm(kind, byLabel).catch(() => ({ ok: false, error: undefined, saveFailed: true }));
+    if (!saved.ok && !saved.saveFailed) {
       setStatus("error");
       setError(saved.error ?? `Something went wrong. Please try again or email us at ${fallbackEmail}.`);
       return;
     }
 
+    let emailed = false;
     if (forms.accessKey) {
       data.append("access_key", forms.accessKey);
       data.append("subject", `MLD Website — ${submissionKinds[kind]}`);
-      // Already saved to the inbox, so a failed email doesn't need to bother the visitor.
-      await fetch("https://api.web3forms.com/submit", { method: "POST", body: data }).catch(() => {});
+      emailed = await fetch("https://api.web3forms.com/submit", { method: "POST", body: data })
+        .then((res) => res.ok)
+        .catch(() => false);
+    }
+
+    // Either the inbox or the email is enough for the team to see it.
+    if (!saved.ok && !emailed) {
+      setStatus("error");
+      setError(`Something went wrong. Please try again or email us at ${fallbackEmail}.`);
+      return;
     }
 
     setStatus("success");
