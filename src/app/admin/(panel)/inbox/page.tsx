@@ -7,7 +7,7 @@ import { listSubmissions } from "@/lib/storage";
 
 const kindStyles: Record<SubmissionKind, string> = {
   contact: "bg-navy-100 text-navy-800",
-  "event-request": "bg-gold-100 text-gold-700",
+  "event-idea": "bg-gold-100 text-gold-700",
   "article-submission": "bg-emerald-50 text-emerald-700",
   "sisters-group": "bg-pink-50 text-pink-700",
 };
@@ -22,7 +22,7 @@ export default async function InboxPage({ searchParams }: PageProps<"/admin/inbo
     <>
       <h1 className="font-serif text-3xl font-semibold text-navy-950">Inbox</h1>
       <p className="mt-1 text-sm text-slate-600">
-        Everything sent through the website forms — contact messages, event requests, article submissions and sisters&apos;
+        Everything sent through the website forms — contact messages, event ideas, article submissions and sisters&apos;
         group requests. Delete a message once it&apos;s been handled.
       </p>
 

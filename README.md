@@ -19,7 +19,7 @@ Go to **/admin** and sign in with the shared password. From there the team can:
 - **Weekly programs**: tick "Repeats every week" (e.g. the Q&A with Shaykh Hamad) and the event stays listed as "Every Tuesday" until deleted.
 - **Articles**: write articles with simple formatting (headings, bullets, quotes, bold, links), a cover image and an optional YouTube/Instagram video. Save as a draft or publish. The newest three show on the home page.
 - **Gallery**: upload photos and flyers, and edit captions. The newest four also show on the home page.
-- **Inbox**: every website form (contact, event requests, article submissions, sisters' WhatsApp group requests) lands here. Submissions are encrypted in storage.
+- **Inbox**: every website form (contact, event ideas, article submissions, sisters' WhatsApp group requests) lands here. Submissions are encrypted in storage.
 - **Links & contact**: WhatsApp group link, GoFundMe link, Instagram and email.
 
 Large phone photos are resized in the browser before upload.

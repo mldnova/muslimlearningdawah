@@ -63,7 +63,7 @@ export type Submission = {
 
 export const submissionKinds = {
   contact: "Contact message",
-  "event-request": "Event request",
+  "event-idea": "Event idea",
   "article-submission": "Article / video submission",
   "sisters-group": "Sisters' WhatsApp group request",
 } as const;

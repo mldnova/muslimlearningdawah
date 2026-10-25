@@ -277,18 +277,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Host */}
+      {/* Suggest */}
       <section className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
-        <h2 className="font-serif text-3xl font-semibold text-navy-950">Host MLD at your masjid or center</h2>
+        <h2 className="font-serif text-3xl font-semibold text-navy-950">Have an idea for an event?</h2>
         <p className="mx-auto mt-3 max-w-xl text-slate-600">
-          Request a lecture, youth night, or sisters&apos; program. Tell us about your community and we&apos;ll
-          follow up, in shaa Allah.
+          A topic you want covered, a speaker you&apos;d love to hear, or a program the community needs — tell us and
+          we&apos;ll consider it as we plan, in shaa Allah.
         </p>
         <Link
-          href="/request-event"
+          href="/suggest-event"
           className="mt-6 inline-flex rounded-full bg-navy-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy-700"
         >
-          Request an event
+          Suggest an event
         </Link>
       </section>
     </>

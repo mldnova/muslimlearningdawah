@@ -212,7 +212,7 @@ export const navItems = [
   { href: "/events", label: "Events" },
   { href: "/gallery", label: "Gallery" },
   { href: "/articles", label: "Articles & Media" },
-  { href: "/request-event", label: "Request an Event" },
+  { href: "/suggest-event", label: "Suggest an Event" },
   { href: "/contact", label: "Contact" },
   { href: "/donate", label: "Donate" },
 ] as const;
