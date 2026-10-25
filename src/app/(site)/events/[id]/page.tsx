@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { EventCard } from "@/components/event-card";
-import { getEvent } from "@/lib/content";
+import { getEvent, getSettings } from "@/lib/content";
 import { formatDate, weekday } from "@/lib/format";
 
 export async function generateMetadata({ params }: PageProps<"/events/[id]">) {
@@ -26,7 +26,7 @@ export default function EventPage(props: PageProps<"/events/[id]">) {
 }
 
 async function EventContent({ params }: PageProps<"/events/[id]">) {
-  const found = await getEvent((await params).id);
+  const [found, settings] = await Promise.all([getEvent((await params).id), getSettings()]);
   if (!found) notFound();
   const { event, isUpcoming, upcoming } = found;
   const others = upcoming.filter((e) => e.id !== event.id).slice(0, 6);
@@ -112,10 +112,15 @@ async function EventContent({ params }: PageProps<"/events/[id]">) {
             )}
             {!isUpcoming && (
               <p className="mt-8 rounded-2xl bg-navy-50 p-4 text-sm text-slate-600">
-                This event has already happened. See what&apos;s coming up below, or browse the{" "}
-                <Link href="/gallery" className="font-semibold text-navy-800 underline underline-offset-2">
-                  gallery
-                </Link>
+                This event has already happened. See what&apos;s coming up below, or catch the recap on{" "}
+                <a
+                  href={settings.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-navy-800 underline underline-offset-2"
+                >
+                  Instagram
+                </a>
                 .
               </p>
             )}

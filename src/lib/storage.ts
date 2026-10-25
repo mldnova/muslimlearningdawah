@@ -108,7 +108,7 @@ export async function saveImage(file: File): Promise<string> {
   return `/uploads/${name}`;
 }
 
-/** Deletes an image previously saved with saveImage. Built-in images in public/gallery are left alone. */
+/** Deletes an image previously saved with saveImage. Built-in flyers in public/gallery are left alone. */
 export async function deleteImage(src: string | undefined) {
   if (!src) return;
   if (useBlob && src.includes(".blob.vercel-storage.com/")) {

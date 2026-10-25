@@ -1,4 +1,4 @@
-import type { Article, EventItem, GalleryItem, SiteSettings } from "@/lib/content-types";
+import type { Article, EventItem, SiteSettings } from "@/lib/content-types";
 
 export const site = {
   name: "Muslim Learning & Da'wah",
@@ -150,67 +150,8 @@ export const donationPackages = [
 /** Starting content — admins write articles at /admin/articles */
 export const seedArticles: Article[] = [];
 
-/** Starting content — admins upload photos at /admin/gallery */
-export const seedGallery: GalleryItem[] = [
-  {
-    id: "recap-deceptions",
-    src: "/gallery/recap-deceptions.jpg",
-    caption: "The Deceptions of Shaytan on the Youth — Iqra Learning Center, Oct 2026",
-    date: "2026-10-20",
-  },
-  {
-    id: "salaams-sips",
-    src: "/gallery/salaams-sips.jpg",
-    caption: "Salaams & Sips — sisters' evening, Oct 2026",
-    date: "2026-10-06",
-  },
-  {
-    id: "philly-trip",
-    src: "/gallery/philly-trip.jpg",
-    caption: "Brothers' trip to Philadelphia — with Shaykh Okasha, Shaykh Tahir Wyatt & Shaykh Abdur Rauf Shakir",
-    date: "2026-10-06",
-  },
-  {
-    id: "suhba-flyer",
-    src: "/gallery/suhba-flyer.jpg",
-    caption: "Suhba: Sisterhood & Community — Hawa Center, Oct 2026",
-    date: "2026-10-02",
-  },
-  {
-    id: "deceptions-flyer",
-    src: "/gallery/deceptions-flyer.jpg",
-    caption: "The Deceptions of Shaytan on the Youth — Alexandria, Oct 2026",
-    date: "2026-09-30",
-  },
-  {
-    id: "palestine-night",
-    src: "/gallery/palestine-night.jpg",
-    caption: "Liberation of Palestine — Sep 2026",
-    date: "2026-09-23",
-  },
-  {
-    id: "salaams-sips-recap",
-    src: "/gallery/salaams-sips-recap.jpg",
-    caption: "Our first Salaams & Sips of the semester — Sep 2026",
-    date: "2026-09-18",
-  },
-  {
-    id: "shaykh-sadiq-recap",
-    src: "/gallery/shaykh-sadiq-recap.jpg",
-    caption: "With Shaykh Sadiq from AMAR — Hawa Center, Sep 2026",
-    date: "2026-09-17",
-  },
-  {
-    id: "bbq-soccer",
-    src: "/gallery/bbq-soccer.jpg",
-    caption: "Annual Community BBQ & Soccer — Van Dyke Park, Sep 2026",
-    date: "2026-09-12",
-  },
-];
-
 export const navItems = [
   { href: "/events", label: "Events" },
-  { href: "/gallery", label: "Gallery" },
   { href: "/articles", label: "Articles & Media" },
   { href: "/suggest-event", label: "Suggest an Event" },
   { href: "/contact", label: "Contact" },

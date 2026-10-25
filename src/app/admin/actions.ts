@@ -5,7 +5,7 @@ import { refresh, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { endSession, passwordMatches, requireAdmin, startSession } from "@/lib/auth";
 import { CONTENT_TAG, loadContent, todayInDmv } from "@/lib/content";
-import type { Article, EventItem, GalleryItem, SiteContent, SiteSettings } from "@/lib/content-types";
+import type { Article, EventItem, SiteContent, SiteSettings } from "@/lib/content-types";
 import {
   allowedImageTypes,
   deleteImage,
@@ -232,48 +232,6 @@ export async function deleteMessage(form: FormData) {
   await requireAdmin();
   await deleteSubmission(text(form, "key"));
   refresh();
-}
-
-// ---------- Gallery ----------
-
-export async function addPhoto(_: FormState, form: FormData): Promise<FormState> {
-  await requireAdmin();
-
-  const file = imageFrom(form);
-  if (typeof file === "string") return { error: file };
-  if (!file) return { error: "Please choose a photo to upload." };
-  const caption = text(form, "caption");
-  if (!caption) return { error: "Please add a short caption (it also helps people using screen readers)." };
-  const date = text(form, "date") || todayInDmv();
-  if (!isDate(date)) return { error: "Please pick a valid date." };
-
-  const error = await attempt(async () => {
-    const content = await loadContent();
-    const photo: GalleryItem = { id: newId(caption), src: await saveImage(file), caption, date };
-    await save({ ...content, gallery: [...content.gallery, photo] });
-  });
-  if (error) return { error };
-  return { saved: true, savedAt: Date.now() };
-}
-
-export async function updatePhoto(form: FormData) {
-  await requireAdmin();
-  const caption = text(form, "caption");
-  const date = text(form, "date");
-  if (!caption || !isDate(date)) return;
-
-  const content = await loadContent();
-  const gallery = content.gallery.map((p) => (p.id === text(form, "id") ? { ...p, caption, date } : p));
-  await save({ ...content, gallery });
-}
-
-export async function deletePhoto(form: FormData) {
-  await requireAdmin();
-  const content = await loadContent();
-  const photo = content.gallery.find((p) => p.id === text(form, "id"));
-  if (!photo) return;
-  await save({ ...content, gallery: content.gallery.filter((p) => p.id !== photo.id) });
-  await deleteImage(photo.src);
 }
 
 // ---------- Settings ----------

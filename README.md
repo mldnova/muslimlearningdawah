@@ -1,6 +1,6 @@
 # Muslim Learning & Da'wah (MLD) Website
 
-A Next.js site inspired by clean nonprofit layouts (hero, donate CTAs, events, gallery, FAQ-style sections). Built for **Muslim Learning & Da'wah** in the DMV.
+A Next.js site inspired by clean nonprofit layouts (hero, donate CTAs, events, FAQ-style sections). Built for **Muslim Learning & Da'wah** in the DMV.
 
 ## Quick start
 
@@ -18,7 +18,6 @@ Go to **/admin** and sign in with the shared password. From there the team can:
 - **Events**: add, edit or delete events and upload flyers. Events move from "Upcoming" to "Past" on their own the day after their date, and upcoming ones show on the home page.
 - **Weekly programs**: tick "Repeats every week" (e.g. the Q&A with Shaykh Hamad) and the event stays listed as "Every Tuesday" until deleted.
 - **Articles**: write articles with simple formatting (headings, bullets, quotes, bold, links), a cover image and an optional YouTube/Instagram video. Save as a draft or publish. The newest three show on the home page.
-- **Gallery**: upload photos and flyers, and edit captions. The newest four also show on the home page.
 - **Inbox**: every website form (contact, event ideas, sisters' WhatsApp group requests) lands here. Submissions are encrypted in storage.
 - **Links & contact**: WhatsApp group link, GoFundMe link, Instagram and email.
 

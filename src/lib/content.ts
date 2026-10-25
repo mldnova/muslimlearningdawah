@@ -1,7 +1,7 @@
 import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
-import type { Article, EventItem, GalleryItem, SiteContent } from "@/lib/content-types";
-import { defaultSettings, seedArticles, seedEvents, seedGallery } from "@/lib/site-config";
+import type { Article, EventItem, SiteContent } from "@/lib/content-types";
+import { defaultSettings, seedArticles, seedEvents } from "@/lib/site-config";
 import { readStoredContent } from "@/lib/storage";
 
 /** Invalidated by every admin save, so the public site updates right away. */
@@ -12,7 +12,6 @@ export async function loadContent(): Promise<SiteContent> {
   const stored = (await readStoredContent()) as Partial<SiteContent> | null;
   return {
     events: stored?.events ?? seedEvents,
-    gallery: stored?.gallery ?? seedGallery,
     articles: stored?.articles ?? seedArticles,
     settings: { ...defaultSettings, ...stored?.settings },
   };
@@ -55,11 +54,6 @@ export async function getEvent(id: string) {
   const { upcoming, past } = await getEvents();
   const event = upcoming.find((e) => e.id === id) ?? past.find((e) => e.id === id);
   return event && { event, isUpcoming: upcoming.includes(event), upcoming };
-}
-
-export async function getGallery(): Promise<GalleryItem[]> {
-  const { gallery } = await getContent();
-  return [...gallery].sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export async function getSettings() {

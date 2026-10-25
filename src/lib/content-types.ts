@@ -14,14 +14,6 @@ export type EventItem = {
   registrationUrl?: string;
 };
 
-export type GalleryItem = {
-  id: string;
-  src: string;
-  caption: string;
-  /** YYYY-MM-DD, used to show newest photos first */
-  date: string;
-};
-
 export type Article = {
   id: string;
   /** URL name: /articles/<slug> */
@@ -47,7 +39,6 @@ export type SiteSettings = {
 
 export type SiteContent = {
   events: EventItem[];
-  gallery: GalleryItem[];
   articles: Article[];
   settings: SiteSettings;
 };

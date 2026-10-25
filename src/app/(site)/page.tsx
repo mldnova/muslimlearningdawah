@@ -3,20 +3,14 @@ import Link from "next/link";
 import { ArticleCard } from "@/components/article-card";
 import { EventCard } from "@/components/event-card";
 import { SectionHeading } from "@/components/section-heading";
-import { getArticles, getEvents, getGallery, getSettings } from "@/lib/content";
+import { getArticles, getEvents, getSettings } from "@/lib/content";
 import { donateUrl, formatDate, initials, weekday } from "@/lib/format";
 import { donationPackages, site, speakers } from "@/lib/site-config";
 
 export default async function HomePage() {
-  const [{ upcoming }, gallery, articles, settings] = await Promise.all([
-    getEvents(),
-    getGallery(),
-    getArticles(),
-    getSettings(),
-  ]);
+  const [{ upcoming }, articles, settings] = await Promise.all([getEvents(), getArticles(), getSettings()]);
   // Feature the next one-off event; fall back to a weekly program.
   const nextEvent = upcoming.find((e) => !e.repeatsWeekly) ?? upcoming[0];
-  const featuredImage = nextEvent?.image ?? gallery[0]?.src;
 
   return (
     <>
@@ -66,15 +60,15 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {featuredImage && (
+          {nextEvent?.image && (
             <Link
-              href={nextEvent ? `/events/${nextEvent.id}` : "/gallery"}
+              href={`/events/${nextEvent.id}`}
               className="group relative mx-auto block w-full max-w-sm overflow-hidden rounded-3xl border border-white/15 bg-navy-900 shadow-2xl shadow-black/40"
             >
               <div className="relative aspect-[4/5]">
                 <Image
-                  src={featuredImage}
-                  alt={nextEvent ? `${nextEvent.title} flyer` : gallery[0].caption}
+                  src={nextEvent.image}
+                  alt={`${nextEvent.title} flyer`}
                   fill
                   loading="eager"
                   className="object-cover transition duration-500 group-hover:scale-[1.03]"
@@ -82,18 +76,12 @@ export default async function HomePage() {
                 />
               </div>
               <div className="border-t border-white/10 bg-navy-950/95 px-5 py-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
-                  {nextEvent ? "Next up" : "Recently"}
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">Next up</p>
+                <p className="mt-1 font-serif text-lg font-semibold text-white">{nextEvent.title}</p>
+                <p className="mt-0.5 text-sm text-navy-100">
+                  {nextEvent.repeatsWeekly ? `Every ${weekday(nextEvent.date)}` : formatDate(nextEvent.date, "short")}
+                  {nextEvent.time && !nextEvent.repeatsWeekly ? ` · ${nextEvent.time}` : ""}
                 </p>
-                <p className="mt-1 font-serif text-lg font-semibold text-white">
-                  {nextEvent ? nextEvent.title : gallery[0].caption}
-                </p>
-                {nextEvent && (
-                  <p className="mt-0.5 text-sm text-navy-100">
-                    {nextEvent.repeatsWeekly ? `Every ${weekday(nextEvent.date)}` : formatDate(nextEvent.date, "short")}
-                    {nextEvent.time && !nextEvent.repeatsWeekly ? ` · ${nextEvent.time}` : ""}
-                  </p>
-                )}
               </div>
             </Link>
           )}
@@ -215,32 +203,24 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Recent moments */}
-      {gallery.length > 0 && (
-        <section className="border-t border-slate-200 bg-white py-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <SectionHeading eyebrow="Moments" title="From our community" />
-              <Link href="/gallery" className="text-sm font-semibold text-navy-700 hover:text-navy-950">
-                Full gallery →
-              </Link>
-            </div>
-            <ul className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-              {gallery.slice(0, 4).map((photo) => (
-                <li key={photo.id} className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-navy-100">
-                  <Image
-                    src={photo.src}
-                    alt={photo.caption}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                    sizes="(max-width:768px) 50vw, 25vw"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
+      {/* Instagram */}
+      <section className="border-t border-slate-200 bg-white py-16">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 sm:px-6 md:flex-row md:items-center">
+          <SectionHeading
+            eyebrow="Photos & videos"
+            title="See our events on Instagram"
+            description="Recaps, reels, and flyers from every program are posted on @mldnova."
+          />
+          <a
+            href={settings.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 rounded-full bg-navy-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy-700"
+          >
+            Follow @mldnova
+          </a>
+        </div>
+      </section>
 
       {/* Give */}
       <section className="bg-pattern bg-navy-900 py-16 text-white">
