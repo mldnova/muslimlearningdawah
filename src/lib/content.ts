@@ -50,6 +50,13 @@ export function splitEvents(events: EventItem[], today: string) {
   };
 }
 
+/** One event plus whether it's still upcoming, for its own page. */
+export async function getEvent(id: string) {
+  const { upcoming, past } = await getEvents();
+  const event = upcoming.find((e) => e.id === id) ?? past.find((e) => e.id === id);
+  return event && { event, isUpcoming: upcoming.includes(event), upcoming };
+}
+
 export async function getGallery(): Promise<GalleryItem[]> {
   const { gallery } = await getContent();
   return [...gallery].sort((a, b) => b.date.localeCompare(a.date));

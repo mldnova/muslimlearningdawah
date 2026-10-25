@@ -68,7 +68,7 @@ export default async function HomePage() {
 
           {featuredImage && (
             <Link
-              href="/events"
+              href={nextEvent ? `/events/${nextEvent.id}` : "/gallery"}
               className="group relative mx-auto block w-full max-w-sm overflow-hidden rounded-3xl border border-white/15 bg-navy-900 shadow-2xl shadow-black/40"
             >
               <div className="relative aspect-[4/5]">
