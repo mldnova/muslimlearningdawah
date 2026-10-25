@@ -123,11 +123,11 @@ export const seedEvents: EventItem[] = [
 export const donationPackages = [
   {
     id: "quran",
-    title: "Quran Package",
+    title: "Box of Qurans",
     amount: 50,
     description:
-      "Help place a mus-haf in the hands of a student or new Muslim. Covers printing, distribution, and dawah materials.",
-    impact: "1 Quran + basic dawah kit",
+      "Stock our da'wah tables with a box of Qurans to give out for free to anyone curious about Islam at campus and community events.",
+    impact: "1 box of Qurans for our da'wah tables",
   },
   {
     id: "conference",

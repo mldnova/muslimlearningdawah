@@ -153,7 +153,7 @@ export default async function HomePage() {
               },
               {
                 title: "Da'wah & outreach",
-                body: "Quran distribution, new-Muslim support, and content that invites others to Islam.",
+                body: "Da'wah tables with free Qurans, new-Muslim support, and content that invites others to Islam.",
               },
             ].map((item) => (
               <div key={item.title} className="rounded-2xl border-t-4 border-gold-400 bg-navy-50 p-6">

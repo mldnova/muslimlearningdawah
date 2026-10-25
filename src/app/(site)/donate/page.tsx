@@ -17,7 +17,7 @@ export default async function DonatePage() {
       <SectionHeading
         eyebrow="Support MLD"
         title="Give with intention"
-        description="The easiest way to donate today is through our official GoFundMe. Pick a package below — you'll be taken to GoFundMe with a suggested amount. Add a note (e.g. “Quran package”) so we know how to allocate your gift."
+        description="The easiest way to donate today is through our official GoFundMe. Pick a package below — you'll be taken to GoFundMe with a suggested amount. Add a note (e.g. “Box of Qurans”) so we know how to allocate your gift."
       />
 
       <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -64,7 +64,7 @@ export default async function DonatePage() {
         <h2 className="font-serif text-xl font-semibold text-navy-950">How giving works</h2>
         <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-slate-600">
           <li>You donate securely on GoFundMe (card, Apple Pay, etc.).</li>
-          <li>Mention the package name in the optional note if you chose Quran or Conference support.</li>
+          <li>Mention the package name in the optional note if you chose the Box of Qurans or Conference Sponsor.</li>
           <li>{site.shortName} uses funds for programs, venues, materials, and dawah as described.</li>
           <li>Questions? Email <a href={`mailto:${settings.email}`} className="font-medium underline">{settings.email}</a>.</li>
         </ol>
