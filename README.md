@@ -27,11 +27,11 @@ Large phone photos are resized in the browser before upload.
 ### Deploying on Vercel
 
 1. Import the repo into Vercel.
-2. **Storage → Create → Blob** and connect it to the project. This adds `BLOB_READ_WRITE_TOKEN`, which is where admin edits and photos are saved.
-3. **Settings → Environment Variables**: add `ADMIN_PASSWORD` (and `NEXT_PUBLIC_WEB3FORMS_KEY` for the forms).
+2. **Storage → Create → Blob** (Public) and connect it to the project. This adds `BLOB_STORE_ID`, which is where admin edits and photos are saved.
+3. **Settings → Environment Variables**: add `ADMIN_PASSWORD` and `SUBMISSIONS_SECRET` (a long random string, e.g. from `openssl rand -base64 32`, that encrypts form messages — never change it). Optionally `NEXT_PUBLIC_WEB3FORMS_KEY` for the form emails.
 4. Redeploy.
 
-Until the first admin save, the site shows the starting content in `src/lib/site-config.ts`. Locally (no Blob token), edits are saved to `.data/` and `public/uploads/`. That is for testing only and isn't copied to the live site.
+Until the first admin save, the site shows the starting content in `src/lib/site-config.ts`. Locally (no Blob store), edits are saved to `.data/` and `public/uploads/`. That is for testing only and isn't copied to the live site.
 
 Speakers and donation packages are still edited in `src/lib/site-config.ts`.
 

@@ -3,7 +3,7 @@ import { deleteMessage } from "@/app/admin/actions";
 import { ActionButton } from "@/components/admin/ui";
 import { requireAdmin } from "@/lib/auth";
 import { submissionKinds, type SubmissionKind } from "@/lib/content-types";
-import { listSubmissions } from "@/lib/storage";
+import { listSubmissions, MissingSecretError } from "@/lib/storage";
 
 const kindStyles: Record<SubmissionKind, string> = {
   contact: "bg-navy-100 text-navy-800",
@@ -14,7 +14,21 @@ const kindStyles: Record<SubmissionKind, string> = {
 export default async function InboxPage({ searchParams }: PageProps<"/admin/inbox">) {
   await requireAdmin();
   const filter = (await searchParams).type;
-  const all = await listSubmissions();
+  let all: Awaited<ReturnType<typeof listSubmissions>>;
+  try {
+    all = await listSubmissions();
+  } catch (err) {
+    if (!(err instanceof MissingSecretError)) throw err;
+    return (
+      <>
+        <h1 className="font-serif text-3xl font-semibold text-navy-950">Inbox</h1>
+        <p className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-6 text-sm text-amber-900">
+          The inbox isn&apos;t set up yet: add <code>SUBMISSIONS_SECRET</code> in Vercel → Settings → Environment
+          Variables, then redeploy. Form messages are still emailed to the team in the meantime.
+        </p>
+      </>
+    );
+  }
   const messages = typeof filter === "string" && filter in submissionKinds ? all.filter((m) => m.kind === filter) : all;
 
   return (
