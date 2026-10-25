@@ -55,13 +55,9 @@ async function ArticleContent({ params }: PageProps<"/articles/[slug]">) {
         <div className="mt-10">
           <ArticleBody text={article.body} />
         </div>
-        <div className="mt-14 rounded-2xl border border-slate-200 bg-white p-6 text-center">
-          <p className="font-serif text-lg font-semibold text-navy-950">Have something beneficial to share?</p>
-          <Link
-            href="/articles#submit"
-            className="mt-3 inline-flex rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-700"
-          >
-            Submit an article or video
+        <div className="mt-14 border-t border-slate-200 pt-6 text-center">
+          <Link href="/articles" className="text-sm font-semibold text-navy-700 hover:text-navy-950">
+            ← More articles
           </Link>
         </div>
       </div>
