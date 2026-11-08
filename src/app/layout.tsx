@@ -25,8 +25,9 @@ export const metadata: Metadata = {
     title: site.name,
     description: site.description,
     type: "website",
-    images: ["/gallery/recap-deceptions.jpg"],
   },
+  // Share image comes from app/opengraph-image.jpg
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
