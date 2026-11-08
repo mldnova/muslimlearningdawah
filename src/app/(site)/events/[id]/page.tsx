@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { EventCard } from "@/components/event-card";
+import { ZoomJoin } from "@/components/zoom-join";
 import { getEvent, getSettings } from "@/lib/content";
 import { formatDate, weekday } from "@/lib/format";
+import { weeklyQa } from "@/lib/site-config";
 
 export async function generateMetadata({ params }: PageProps<"/events/[id]">) {
   const found = await getEvent((await params).id);
@@ -99,6 +101,12 @@ async function EventContent({ params }: PageProps<"/events/[id]">) {
             </dl>
 
             <p className="mt-6 whitespace-pre-line leading-relaxed text-slate-700">{event.description}</p>
+
+            {event.id === weeklyQa.eventId && (
+              <div className="mt-8">
+                <ZoomJoin />
+              </div>
+            )}
 
             {isUpcoming && event.registrationUrl && (
               <a

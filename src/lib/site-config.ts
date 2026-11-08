@@ -61,7 +61,7 @@ export const seedEvents: EventItem[] = [
     id: "weekly-qa-shaykh-hamad",
     title: "Weekly Q&A with Shaykh Hamad As-Surayh",
     description:
-      "Bring your questions and benefit from Shaykh Hamad As-Surayh — former judge and professor in Qassim, and a student of Shaykh Ibn Uthaymeen. The time and Zoom code are shared each week on Instagram and WhatsApp.",
+      "Bring your questions and benefit from Shaykh Hamad As-Surayh — former judge and professor in Qassim, and a student of Shaykh Ibn Uthaymeen. Join live on Zoom; the time is shared each week on Instagram and WhatsApp.",
     date: "2025-09-02",
     repeatsWeekly: true,
     time: "Time shared weekly on IG & WhatsApp",
@@ -99,16 +99,6 @@ export const seedEvents: EventItem[] = [
     image: "/gallery/salaams-sips.jpg",
   },
   {
-    id: "liberation-of-palestine",
-    title: "Liberation of Palestine",
-    description:
-      "A night of reflection with Ustadh Rubeellion Mansoor on how Umar (RA) first opened Palestine for the Muslims. Food from Bawadi served after.",
-    date: "2026-09-28",
-    time: "4:00 PM – 6:00 PM",
-    location: "JC Room G",
-    image: "/gallery/palestine-night.jpg",
-  },
-  {
     id: "bbq-soccer-2026",
     title: "Annual Community BBQ & Soccer Tournament",
     description:
@@ -118,7 +108,112 @@ export const seedEvents: EventItem[] = [
     location: "Van Dyke Park",
     image: "/gallery/bbq-soccer.jpg",
   },
+  {
+    id: "dmv-tour-sadiq-yasin",
+    title: "DMV Tour with Ustadh Sadiq Yasin",
+    description:
+      "Three nights across the DMV with Ustadh Sadiq Yasin — with Tanzil Seminary, Al-Madrasatu Ar-Rahmaniyyah, and Madinah Institute.\n\nJuly 27 · Life of Ibn Al-Qayyim — Hawa Center, Fairfax, VA (Maghrib to Isha)\nJuly 28 · Tazkiyatun Nafs — Muslim Community Center, Silver Spring, MD (7–10 PM)\nJuly 29 · The Honor of Islam and Remaining Firm Upon It — Dar Al-Hijrah, Falls Church, VA (Maghrib to Isha)",
+    date: "2026-07-27",
+    time: "July 27 – 29",
+    location: "Fairfax, VA · Silver Spring, MD · Falls Church, VA",
+    image: "/gallery/dmv-tour-sadiq-yasin.jpg",
+  },
+  {
+    id: "tests-of-faith",
+    title: "Tests of Faith with Shaykh Hamad As-Surayh",
+    description:
+      "A three-night program with Shaykh Hamad As-Surayh, with Madinah Institute, Baseerah Center, and the Hawa Center.\n\nFriday · Aim High: having high aspirations and goals in Islam (7–10 PM)\nSaturday · The Exoneration of A'isha: the story of the slander against A'isha (6–10 PM)\nSunday · Unwavering Faith: the trial and torture of Imam Ahmad (6–10 PM)",
+    date: "2026-07-17",
+    time: "July 17 – 19",
+    location: "Hawa Center, 4401 Fair Lakes Ct, Fairfax, VA",
+    image: "/gallery/tests-of-faith.jpg",
+  },
+  {
+    id: "seerah-hassan-mohamed",
+    title: "Seerah of Prophet Muhammad ﷺ",
+    description: "A weekly study of the life of the Prophet ﷺ with Shaykh Hassan Mohamed, at the Hawa Center.",
+    date: "2026-06-08",
+    time: "Mondays from June 8 · After Maghrib",
+    location: "Hawa Center, 4401 Fair Lakes Ct, Fairfax, VA",
+    image: "/gallery/seerah-hassan-mohamed.jpg",
+  },
+  {
+    id: "manners-student-teacher",
+    title: "Manners of the Student & Teacher",
+    description:
+      "Adab al-Mu'allimeen wal-Muta'allimeen — a weekly class with Ustadh Rubeellion Mansoor on the manners of seeking and teaching knowledge, hosted with Iqra Learning Center.",
+    date: "2026-06-06",
+    time: "Saturdays, June 6 – July 3 · After Maghrib",
+    location: "Iqra Learning Center, 5703 Edsall Rd, Alexandria, VA",
+    image: "/gallery/manners-student-teacher.jpg",
+  },
+  {
+    id: "legacy-of-the-sunnah",
+    title: "The Legacy of the Sunnah",
+    description:
+      "A conference on the legacy of what the Prophet ﷺ and his companions left behind, with Shaykh Uthman Bin Farooq, Shaykh Karim Abu Zaid, Imam Soufiane Taydi, and Ustadh Rubeellion Mansoor.",
+    date: "2026-05-15",
+    time: "May 15 – 17",
+    location: "Hawa Center, 4401 Fair Lakes Ct, Fairfax, VA",
+    image: "/gallery/legacy-of-the-sunnah.jpg",
+  },
 ];
+
+/** Weekly Q&A Zoom details — shown at the bottom of the home page and on the Q&A event page */
+export const weeklyQa = {
+  eventId: "weekly-qa-shaykh-hamad",
+  zoomUrl: "https://zoom.us/j/94392992654",
+  meetingId: "943 9265 2654",
+  rules: [
+    "Camera and mic must be off",
+    "DM your questions to the Zoom host in the chat",
+    "Keep questions brief",
+  ],
+} as const;
+
+/** Scrolling photo strip on the home and About pages (files in public/carousel) */
+export const carouselPhotos = [
+  { src: "/carousel/05.jpg", alt: "Shaykh Hamad As-Surayh speaking at a Madinah Institute program", width: 1150, height: 1800 },
+  { src: "/carousel/02.jpg", alt: "A speaker addressing the audience at an MLD lecture", width: 1800, height: 1200 },
+  { src: "/carousel/04.jpg", alt: "Brothers smiling together at a community gathering", width: 1206, height: 663 },
+  { src: "/carousel/06.jpg", alt: "A teacher speaking with a microphone during a halaqah", width: 1280, height: 855 },
+  { src: "/carousel/03.jpg", alt: "Attendees taking notes during a class", width: 1206, height: 674 },
+  { src: "/carousel/08.jpg", alt: "A teacher seated at the MLD table during a class", width: 1280, height: 855 },
+  { src: "/carousel/11.jpg", alt: "Shaykh Hamad As-Surayh delivering a lecture", width: 1440, height: 1800 },
+  { src: "/carousel/07.jpg", alt: "An attendee listening during a lecture", width: 1280, height: 855 },
+  { src: "/carousel/01.jpg", alt: "A shaykh listening during a program", width: 1200, height: 1800 },
+  { src: "/carousel/09.jpg", alt: "A brother listening in the musalla", width: 1280, height: 855 },
+  { src: "/carousel/10.jpg", alt: "Following along with the Quran on a tablet", width: 1280, height: 855 },
+] as const;
+
+/** About page and the home page's About section */
+export const about = {
+  mission:
+    "Muslim Learning & Da'wah (MLD) brings trusted scholars and teachers to youth and families across the DMV — helping Muslims learn their deen with clarity, building real brotherhood and sisterhood, and inviting others to Islam with wisdom.",
+  focus: [
+    {
+      title: "Educational events",
+      body: "Evening lectures, weekly classes, and multi-day conferences on iman, character, the seerah, and navigating modern challenges.",
+    },
+    {
+      title: "Community building",
+      body: "Brothers' halaqahs, sisters' programs, and community days that build lasting brotherhood and sisterhood.",
+    },
+    {
+      title: "Da'wah & outreach",
+      body: "Da'wah tables with free Qurans, new-Muslim support, and content that invites others to Islam.",
+    },
+    {
+      title: "Da'wah training",
+      body: "Preparing brothers and sisters to share Islam with knowledge, wisdom, and good character.",
+    },
+  ],
+  story: [
+    "MLD is based in Northern Virginia and works across the DMV. We started with a simple goal: give young Muslims access to scholars and teachers who speak with knowledge, clarity, and compassion — close to home.",
+    "Alhamdulillah, that has grown into conferences like The Legacy of the Sunnah and Tests of Faith, weekly series on the seerah and the manners of seeking knowledge, a three-night DMV tour, sisters' gatherings, and community days — alongside a weekly online Q&A with Shaykh Hamad As-Surayh.",
+    "None of it happens alone. We work with local centers and organizations including the Hawa Center, Iqra Learning Center, Madinah Institute, Baseerah Center, Tanzil Seminary, and the Imam Al-Kisai Institute.",
+  ],
+} as const;
 
 export const donationPackages = [
   {
@@ -130,11 +225,19 @@ export const donationPackages = [
     impact: "1 box of Qurans for our da'wah tables",
   },
   {
-    id: "conference",
-    title: "Conference Sponsor",
-    amount: 250,
+    id: "minor-conference",
+    title: "Minor Conference",
+    amount: 500,
     description:
-      "Sponsor venue, AV, or refreshments for our next youth lecture or conference.",
+      "Sponsor a one-day program or da'wah training — venue, AV, refreshments, and materials.",
+    impact: "Named sponsor on event materials",
+  },
+  {
+    id: "major-conference",
+    title: "Major Conference",
+    amount: 1000,
+    description:
+      "Sponsor a multi-day conference with visiting scholars — speaker travel, venue, and hospitality.",
     impact: "Named sponsor on event materials",
   },
   {
@@ -151,6 +254,7 @@ export const donationPackages = [
 export const seedArticles: Article[] = [];
 
 export const navItems = [
+  { href: "/about", label: "About" },
   { href: "/events", label: "Events" },
   { href: "/articles", label: "Articles & Media" },
   { href: "/suggest-event", label: "Suggest an Event" },

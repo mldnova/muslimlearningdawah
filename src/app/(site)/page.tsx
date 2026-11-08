@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArticleCard } from "@/components/article-card";
 import { EventCard } from "@/components/event-card";
+import { PhotoStrip } from "@/components/photo-strip";
 import { SectionHeading } from "@/components/section-heading";
+import { ZoomJoin } from "@/components/zoom-join";
 import { getArticles, getEvents, getSettings } from "@/lib/content";
 import { donateUrl, formatDate, initials, weekday } from "@/lib/format";
-import { donationPackages, site, speakers } from "@/lib/site-config";
+import { about, carouselPhotos, donationPackages, site, speakers } from "@/lib/site-config";
 
 export default async function HomePage() {
   const [{ upcoming }, articles, settings] = await Promise.all([getEvents(), getArticles(), getSettings()]);
@@ -124,26 +126,14 @@ export default async function HomePage() {
       {/* About */}
       <section className="border-y border-slate-200 bg-white py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading
-            eyebrow="About MLD"
-            title="Muslim Learning & Da'wah in the DMV"
-            description="We host lectures, conferences, and community programs for brothers and sisters — especially youth — with scholars and teachers who speak with clarity and compassion."
-          />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Educational events",
-                body: "Evening lectures and conferences on iman, character, and navigating modern challenges.",
-              },
-              {
-                title: "Community building",
-                body: "Brothers' halaqahs, sisters' programs, and spaces to build lasting brotherhood and sisterhood.",
-              },
-              {
-                title: "Da'wah & outreach",
-                body: "Da'wah tables with free Qurans, new-Muslim support, and content that invites others to Islam.",
-              },
-            ].map((item) => (
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionHeading eyebrow="About MLD" title="Muslim Learning & Da'wah in the DMV" description={about.mission} />
+            <Link href="/about" className="text-sm font-semibold text-navy-700 hover:text-navy-950">
+              Our story →
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {about.focus.map((item) => (
               <div key={item.title} className="rounded-2xl border-t-4 border-gold-400 bg-navy-50 p-6">
                 <h3 className="font-serif text-xl font-semibold text-navy-950">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.body}</p>
@@ -220,6 +210,9 @@ export default async function HomePage() {
             Follow @mldnova
           </a>
         </div>
+        <div className="mt-10">
+          <PhotoStrip photos={carouselPhotos} />
+        </div>
       </section>
 
       {/* Give */}
@@ -232,7 +225,7 @@ export default async function HomePage() {
             title="Fund Qurans, conferences, and community work"
             description="Choose a package or give any amount. Donations are processed securely through our GoFundMe campaign."
           />
-          <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-3">
+          <div className="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {donationPackages.map((pkg) => (
               <a
                 key={pkg.id}
@@ -242,7 +235,7 @@ export default async function HomePage() {
                 className="rounded-2xl border border-white/15 bg-white/5 p-5 text-center transition hover:border-gold-300/60 hover:bg-white/10"
               >
                 <p className="font-serif text-lg font-semibold">{pkg.title}</p>
-                <p className="mt-2 text-2xl font-semibold text-gold-300">${pkg.amount}+</p>
+                <p className="mt-2 text-2xl font-semibold text-gold-300">${pkg.amount.toLocaleString("en-US")}+</p>
               </a>
             ))}
           </div>
@@ -270,6 +263,11 @@ export default async function HomePage() {
         >
           Suggest an event
         </Link>
+      </section>
+
+      {/* Weekly Q&A Zoom */}
+      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+        <ZoomJoin title="Join Shaykh Hamad's weekly Q&A on Zoom" />
       </section>
     </>
   );

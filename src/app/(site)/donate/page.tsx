@@ -7,7 +7,7 @@ import { donationPackages, site } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Donate",
-  description: "Support Muslim Learning & Da'wah — Qurans, conferences, and general fund.",
+  description: "Support Muslim Learning & Da'wah — Qurans, conferences, da'wah training, and general fund.",
 };
 
 export default async function DonatePage() {
@@ -20,14 +20,14 @@ export default async function DonatePage() {
         description="The easiest way to donate today is through our official GoFundMe. Pick a package below — you'll be taken to GoFundMe with a suggested amount. Add a note (e.g. “Box of Qurans”) so we know how to allocate your gift."
       />
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-3">
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {donationPackages.map((pkg) => (
           <article
             key={pkg.id}
             className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-navy-950/5"
           >
             <h2 className="font-serif text-2xl font-semibold text-navy-950">{pkg.title}</h2>
-            <p className="mt-1 text-3xl font-semibold text-navy-800">${pkg.amount}</p>
+            <p className="mt-1 text-3xl font-semibold text-navy-800">${pkg.amount.toLocaleString("en-US")}</p>
             <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-600">{pkg.description}</p>
             <p className="mt-4 text-xs font-medium uppercase tracking-wide text-slate-500">
               {pkg.impact}
@@ -38,7 +38,7 @@ export default async function DonatePage() {
               rel="noopener noreferrer"
               className="mt-6 inline-flex justify-center rounded-full bg-gold-400 px-5 py-3 text-sm font-semibold text-navy-950 transition hover:bg-gold-300"
             >
-              Donate ${pkg.amount} on GoFundMe
+              Donate ${pkg.amount.toLocaleString("en-US")} on GoFundMe
             </a>
           </article>
         ))}
@@ -64,7 +64,7 @@ export default async function DonatePage() {
         <h2 className="font-serif text-xl font-semibold text-navy-950">How giving works</h2>
         <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-slate-600">
           <li>You donate securely on GoFundMe (card, Apple Pay, etc.).</li>
-          <li>Mention the package name in the optional note if you chose the Box of Qurans or Conference Sponsor.</li>
+          <li>Mention the package name in the optional note if you chose a specific package (e.g. Box of Qurans or Major Conference).</li>
           <li>{site.shortName} uses funds for programs, venues, materials, and dawah as described.</li>
           <li>Questions? Email <a href={`mailto:${settings.email}`} className="font-medium underline">{settings.email}</a>.</li>
         </ol>

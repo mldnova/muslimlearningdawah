@@ -54,3 +54,29 @@ body {
   background: var(--color-gold-200);
   color: var(--color-navy-950);
 }
+
+/* Home and About photo strip: the track holds two copies, so moving by half loops seamlessly */
+@keyframes photo-strip {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Edges fade into the page instead of cutting photos off */
+.photo-strip {
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
+.photo-strip-track {
+  animation: photo-strip 90s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-strip {
+    overflow-x: auto;
+  }
+
+  .photo-strip-track {
+    animation: none;
+  }
+}
