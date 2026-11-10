@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  async redirects() {
+    // The suggest page became "Book an Event" (with suggesting as a tab)
+    return [{ source: "/suggest-event", destination: "/book-event", permanent: true }];
+  },
   images: {
     // Photos uploaded from /admin are stored in Vercel Blob
     remotePatterns: [new URL("https://*.public.blob.vercel-storage.com/**")],

@@ -6,7 +6,7 @@ import { PhotoStrip } from "@/components/photo-strip";
 import { SectionHeading } from "@/components/section-heading";
 import { ZoomJoin } from "@/components/zoom-join";
 import { getArticles, getEvents, getSettings } from "@/lib/content";
-import { donateUrl, formatDate, initials, weekday } from "@/lib/format";
+import { donateUrl, formatDate, weekday } from "@/lib/format";
 import { about, carouselPhotos, donationPackages, site, speakers } from "@/lib/site-config";
 
 export default async function HomePage() {
@@ -127,7 +127,7 @@ export default async function HomePage() {
       <section className="border-y border-slate-200 bg-white py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <SectionHeading eyebrow="About MLD" title="Muslim Learning & Da'wah in the DMV" description={about.mission} />
+            <SectionHeading eyebrow="About MLD" title="Based in the DMV, serving communities across the country" description={about.mission} />
             <Link href="/about" className="text-sm font-semibold text-navy-700 hover:text-navy-950">
               Our story →
             </Link>
@@ -145,30 +145,35 @@ export default async function HomePage() {
 
       {/* Speakers */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <SectionHeading
-          eyebrow="Featured speakers"
-          title="Scholars & teachers at our programs"
-          description="Our events regularly feature trusted voices from our community and visiting scholars."
-        />
-        <ul className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <SectionHeading
+            eyebrow="Featured speakers"
+            title="Scholars & teachers at our programs"
+            description="Our events regularly feature trusted voices from our community and visiting scholars."
+          />
+          <Link href="/speakers" className="text-sm font-semibold text-navy-700 hover:text-navy-950">
+            All speakers →
+          </Link>
+        </div>
+        <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {speakers.map((sp) => (
-            <li key={sp.name} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <span
-                aria-hidden
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-navy-900 font-serif text-base font-semibold text-gold-300"
-              >
-                {initials(sp.name)}
-              </span>
-              <h3 className="mt-4 font-serif text-lg font-semibold text-navy-950">{sp.name}</h3>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-gold-600">{sp.title}</p>
-              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate-600">
-                {sp.highlights.map((point) => (
-                  <li key={point} className="flex gap-2">
-                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rotate-45 bg-gold-500" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
+            <li key={sp.name}>
+              <Link href="/speakers" className="group block">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-navy-100">
+                  <Image
+                    src={sp.photo}
+                    alt={sp.name}
+                    fill
+                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    style={{ objectPosition: sp.focus }}
+                    sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 220px"
+                  />
+                </div>
+                <h3 className="mt-3 font-serif text-base font-semibold text-navy-950 group-hover:text-navy-700">
+                  {sp.name}
+                </h3>
+                <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-gold-600">{sp.title}</p>
+              </Link>
             </li>
           ))}
         </ul>
@@ -250,18 +255,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Suggest */}
+      {/* Book or suggest */}
       <section className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
-        <h2 className="font-serif text-3xl font-semibold text-navy-950">Have an idea for an event?</h2>
+        <h2 className="font-serif text-3xl font-semibold text-navy-950">Bring MLD to your community</h2>
         <p className="mx-auto mt-3 max-w-xl text-slate-600">
-          A topic you want covered, a speaker you&apos;d love to hear, or a program the community needs — tell us and
-          we&apos;ll consider it as we plan, in shaa Allah.
+          Book one of our speakers, a conference, or da&apos;wah training for your masjid, MSA, or organization — or
+          send us an idea for an event you&apos;d like to see, in shaa Allah.
         </p>
         <Link
-          href="/suggest-event"
+          href="/book-event"
           className="mt-6 inline-flex rounded-full bg-navy-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy-700"
         >
-          Suggest an event
+          Book or suggest an event
         </Link>
       </section>
 

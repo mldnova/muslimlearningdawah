@@ -32,7 +32,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${libre.variable} h-full scroll-smooth`} data-scroll-behavior="smooth">
+    // Extensions like Dark Reader add attributes to <html> before React loads
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${libre.variable} h-full scroll-smooth`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body className="flex min-h-full flex-col antialiased">{children}</body>
     </html>
   );

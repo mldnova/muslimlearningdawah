@@ -5,8 +5,8 @@ export const site = {
   shortName: "MLD",
   tagline: "Educating youth, strengthening community, and calling to Allah with wisdom.",
   description:
-    "Muslim Learning & Da'wah (MLD) hosts lectures, conferences, and community programs for youth and families across the DMV.",
-  location: "Northern Virginia · DMV",
+    "Muslim Learning & Da'wah (MLD) is based in the DMV and hosts lectures, conferences, and community programs for youth and families across the country.",
+  location: "Based in the DMV · Programs across the country",
   url: "https://muslimlearningdawah.com",
 } as const;
 
@@ -26,10 +26,13 @@ export const forms = {
   accessKey: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "e4eae5c3-17ab-4b38-a4fe-aa1320adb0e6",
 } as const;
 
+/** Shown on /speakers and previewed on the home page. `focus` is the CSS object-position that keeps the face in frame. */
 export const speakers = [
   {
     name: "Sh. Hamad As-Surayh",
     title: "Former judge & professor in Qassim",
+    photo: "/speakers/hamad-as-surayh.jpg",
+    focus: "50% 25%",
     highlights: [
       "Memorized all six books of hadith with their chains",
       "Student of Shaykh Ibn Uthaymeen and Shaykh Abdullah Al-Bassam",
@@ -39,6 +42,8 @@ export const speakers = [
   {
     name: "Sh. Yasir Siddig",
     title: "Imam, Clear Lake Islamic Center",
+    photo: "/speakers/yasir-siddig.jpg",
+    focus: "50% 30%",
     highlights: [
       "Master's in Hadith",
       "PhD candidate in Usool",
@@ -48,9 +53,33 @@ export const speakers = [
   {
     name: "Sh. Hassan Mohammad",
     title: "Founder, Tanzil Institute",
+    photo: "/speakers/hassan-mohamed.jpg",
+    focus: "50% 30%",
     highlights: [
       "Master's in Hadith",
       "Former imam of Prince George's Muslim Association (PGMA)",
+    ],
+  },
+  {
+    name: "Sh. Ibrahim Ali",
+    title: "Founder, Talibul Ilm Academy",
+    photo: "/speakers/ibrahim-ali.jpg",
+    focus: "50% 20%",
+    highlights: [
+      "Graduate of Imam Muhammad Ibn Saud University in Riyadh",
+      "Student of Shaykh Abdul Mun'im",
+      "Founder of Talibul Ilm Academy",
+    ],
+  },
+  {
+    name: "Ustadh Rubeellion Mansoor",
+    title: "Founder of MLD",
+    photo: "/speakers/rubeellion-mansoor.jpg",
+    focus: "40% 25%",
+    highlights: [
+      "Founder of Muslim Learning & Da'wah",
+      "Current student of shariah studies",
+      "Studied under Shaykh Saleh As-Suhaymi and Shaykh Abdurrazzaq Al-Badr",
     ],
   },
 ] as const;
@@ -189,7 +218,7 @@ export const carouselPhotos = [
 /** About page and the home page's About section */
 export const about = {
   mission:
-    "Muslim Learning & Da'wah (MLD) brings trusted scholars and teachers to youth and families across the DMV — helping Muslims learn their deen with clarity, building real brotherhood and sisterhood, and inviting others to Islam with wisdom.",
+    "Muslim Learning & Da'wah (MLD) brings trusted scholars and teachers to youth and families — based in the DMV and working with communities across the country — helping Muslims learn their deen with clarity, building real brotherhood and sisterhood, and inviting others to Islam with wisdom.",
   focus: [
     {
       title: "Educational events",
@@ -209,7 +238,7 @@ export const about = {
     },
   ],
   story: [
-    "MLD is based in Northern Virginia and works across the DMV. We started with a simple goal: give young Muslims access to scholars and teachers who speak with knowledge, clarity, and compassion — close to home.",
+    "MLD is based in the DMV and works with communities across the country. We started with a simple goal: give young Muslims access to scholars and teachers who speak with knowledge, clarity, and compassion.",
     "Alhamdulillah, that has grown into conferences like The Legacy of the Sunnah and Tests of Faith, weekly series on the seerah and the manners of seeking knowledge, a three-night DMV tour, sisters' gatherings, and community days — alongside a weekly online Q&A with Shaykh Hamad As-Surayh.",
     "None of it happens alone. We work with local centers and organizations including the Hawa Center, Iqra Learning Center, Madinah Institute, Baseerah Center, Tanzil Seminary, and the Imam Al-Kisai Institute.",
   ],
@@ -256,8 +285,9 @@ export const seedArticles: Article[] = [];
 export const navItems = [
   { href: "/about", label: "About" },
   { href: "/events", label: "Events" },
+  { href: "/speakers", label: "Speakers" },
   { href: "/articles", label: "Articles & Media" },
-  { href: "/suggest-event", label: "Suggest an Event" },
+  { href: "/book-event", label: "Book an Event" },
   { href: "/contact", label: "Contact" },
   { href: "/donate", label: "Donate" },
 ] as const;

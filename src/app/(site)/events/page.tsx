@@ -5,7 +5,7 @@ import { getEvents, getSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Events",
-  description: "Upcoming and past Muslim Learning & Da'wah events in the DMV.",
+  description: "Upcoming and past Muslim Learning & Da'wah events — based in the DMV, with programs across the country.",
 };
 
 export default async function EventsPage() {

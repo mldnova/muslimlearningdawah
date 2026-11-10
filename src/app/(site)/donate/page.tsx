@@ -48,7 +48,7 @@ export default async function DonatePage() {
         <h2 className="font-serif text-2xl font-semibold text-white">Custom amount</h2>
         <p className="mt-2 max-w-2xl text-navy-100">
           Give any amount that fits your budget. Every contribution helps us run programs, bring speakers,
-          and serve youth in the DMV.
+          and serve youth in the DMV and beyond.
         </p>
         <a
           href={settings.goFundMe}

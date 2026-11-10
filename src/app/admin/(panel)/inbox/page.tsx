@@ -7,6 +7,7 @@ import { listSubmissions, MissingSecretError } from "@/lib/storage";
 
 const kindStyles: Record<SubmissionKind, string> = {
   contact: "bg-navy-100 text-navy-800",
+  booking: "bg-emerald-50 text-emerald-700",
   "event-idea": "bg-gold-100 text-gold-700",
   "sisters-group": "bg-pink-50 text-pink-700",
 };

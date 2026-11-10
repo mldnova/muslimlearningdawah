@@ -18,7 +18,7 @@ export function SiteHeaderView({ pathname }: { pathname: string | null }) {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy-950/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Logo />
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           {navItems.map((item) => {
             const active = pathname === item.href;
             if (item.href === "/donate") {
@@ -48,7 +48,7 @@ export function SiteHeaderView({ pathname }: { pathname: string | null }) {
         </nav>
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-lg p-2 text-white md:hidden"
+          className="inline-flex items-center justify-center rounded-lg p-2 text-white lg:hidden"
           aria-expanded={open}
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
@@ -63,7 +63,7 @@ export function SiteHeaderView({ pathname }: { pathname: string | null }) {
         </button>
       </div>
       {open && (
-        <nav className="border-t border-white/10 bg-navy-950 px-4 py-3 md:hidden" aria-label="Mobile">
+        <nav className="border-t border-white/10 bg-navy-950 px-4 py-3 lg:hidden" aria-label="Mobile">
           <ul className="flex flex-col gap-1">
             {navItems.map((item) => (
               <li key={item.href}>
