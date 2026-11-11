@@ -90,10 +90,10 @@ export const seedEvents: EventItem[] = [
     id: "weekly-qa-shaykh-hamad",
     title: "Weekly Q&A with Shaykh Hamad As-Surayh",
     description:
-      "Bring your questions and benefit from Shaykh Hamad As-Surayh — former judge and professor in Qassim, and a student of Shaykh Ibn Uthaymeen. Join live on Zoom; the time is shared each week on Instagram and WhatsApp.",
+      "Bring your questions and benefit from Shaykh Hamad As-Surayh — former judge and professor in Qassim, and a student of Shaykh Ibn Uthaymeen. Join live on Zoom every week at 2:30 PM Eastern.",
     date: "2025-09-02",
     repeatsWeekly: true,
-    time: "Time shared weekly on IG & WhatsApp",
+    time: "2:30 PM ET",
     location: "Online — Zoom",
     image: "/gallery/weekly-qa-shaykh-hamad.jpg",
   },
@@ -116,16 +116,6 @@ export const seedEvents: EventItem[] = [
     time: "5:00 PM – 8:30 PM",
     location: "Iqra Learning Center, 5703 Edsall Rd, Alexandria, VA",
     image: "/gallery/deceptions-flyer.jpg",
-  },
-  {
-    id: "salaams-sips",
-    title: "Salaams & Sips",
-    description:
-      "An evening of sisterhood and connection — lattes and matcha from Dostie Cafe, meeting new sisters, and good conversation.",
-    date: "2026-10-14",
-    time: "4:00 PM – 5:30 PM",
-    location: "Shared in the sisters' WhatsApp group",
-    image: "/gallery/salaams-sips.jpg",
   },
   {
     id: "bbq-soccer-2026",
@@ -218,7 +208,7 @@ export const carouselPhotos = [
 /** About page and the home page's About section */
 export const about = {
   mission:
-    "Muslim Learning & Da'wah (MLD) brings trusted scholars and teachers to youth and families — based in the DMV and working with communities across the country — helping Muslims learn their deen with clarity, building real brotherhood and sisterhood, and inviting others to Islam with wisdom.",
+    "Our mission is to spread authentic Islamic knowledge through conferences, lectures, intensive seminars and educational programs featuring the most respected scholars and teachers from around the nation.",
   focus: [
     {
       title: "Educational events",
@@ -238,11 +228,34 @@ export const about = {
     },
   ],
   story: [
-    "MLD is based in the DMV and works with communities across the country. We started with a simple goal: give young Muslims access to scholars and teachers who speak with knowledge, clarity, and compassion.",
-    "Alhamdulillah, that has grown into conferences like The Legacy of the Sunnah and Tests of Faith, weekly series on the seerah and the manners of seeking knowledge, a three-night DMV tour, sisters' gatherings, and community days — alongside a weekly online Q&A with Shaykh Hamad As-Surayh.",
-    "None of it happens alone. We work with local centers and organizations including the Hawa Center, Iqra Learning Center, Madinah Institute, Baseerah Center, Tanzil Seminary, and the Imam Al-Kisai Institute.",
+    "What began seven years ago as a small group of college students in Fairfax, Virginia, with a shared passion for spreading Islamic knowledge has grown into an established nonprofit organization dedicated to educating, inspiring, and serving communities across the country.",
+    "With Muslim Learning & Da'wah (MLD), our mission is to spread authentic Islamic knowledge through conferences, lectures, intensive seminars and educational programs featuring the most respected scholars and teachers from around the nation.",
+    "Alongside these efforts, we organize da'wah tables both locally and nationwide, providing volunteers with the training, knowledge, and hands-on experience needed to invite others to Islam with wisdom, kindness, and good character.",
+    "We invite you to explore our past events, meet our speakers, and join us in our mission to spread authentic Islamic knowledge and the beautiful teachings and manners of Islam.",
   ],
 } as const;
+
+/**
+ * Event changes made in code. Once the team saves anything at /admin, the live site uses that saved
+ * copy instead of `seedEvents`, so these are applied with the "Apply updates" button on /admin.
+ * Bump `version` whenever the list changes so the button shows up again.
+ */
+export const eventUpdates = {
+  version: "2026-11-10",
+  /** Added, or merged into the saved event with the same id */
+  upsert: seedEvents.filter((e) =>
+    [
+      "weekly-qa-shaykh-hamad",
+      "dmv-tour-sadiq-yasin",
+      "tests-of-faith",
+      "seerah-hassan-mohamed",
+      "manners-student-teacher",
+      "legacy-of-the-sunnah",
+    ].includes(e.id),
+  ),
+  /** GMU events and others the team took down */
+  remove: ["liberation-of-palestine", "salaams-sips"],
+};
 
 export const donationPackages = [
   {

@@ -22,7 +22,10 @@ export default async function AboutPage() {
           <h1 className="mt-4 max-w-3xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">
             Learning the deen, building community, and calling to Allah.
           </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-navy-100">{about.mission}</p>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-navy-100">
+            Started by college students in Fairfax, Virginia, seven years ago — now a nonprofit educating, inspiring,
+            and serving communities across the country.
+          </p>
         </div>
       </section>
 

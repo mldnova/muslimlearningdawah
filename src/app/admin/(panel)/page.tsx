@@ -1,16 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { deleteEvent } from "@/app/admin/actions";
+import { applyEventUpdates, deleteEvent } from "@/app/admin/actions";
 import { ActionButton } from "@/components/admin/ui";
 import { requireAdmin } from "@/lib/auth";
 import { loadContent, splitEvents, todayInDmv } from "@/lib/content";
 import type { EventItem } from "@/lib/content-types";
 import { formatDate, weekday } from "@/lib/format";
+import { eventUpdates } from "@/lib/site-config";
 
 export default async function AdminEventsPage() {
   await requireAdmin();
-  const { events } = await loadContent();
+  const { events, eventUpdatesApplied } = await loadContent();
   const { upcoming, past } = splitEvents(events, todayInDmv());
+  const updatesPending = eventUpdatesApplied !== eventUpdates.version;
+  const removing = events.filter((e) => (eventUpdates.remove as string[]).includes(e.id));
 
   return (
     <>
@@ -28,6 +31,26 @@ export default async function AdminEventsPage() {
           + Add event
         </Link>
       </div>
+
+      {updatesPending && (
+        <section className="mt-8 rounded-2xl border border-gold-300 bg-gold-100/60 p-5">
+          <h2 className="font-semibold text-navy-950">Event updates are ready</h2>
+          <p className="mt-1 text-sm text-slate-700">Applying these will:</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700">
+            {eventUpdates.upsert.map((e) => (
+              <li key={e.id}>
+                {events.some((saved) => saved.id === e.id) ? "Update" : "Add"} “{e.title}”
+              </li>
+            ))}
+            {removing.map((e) => (
+              <li key={e.id}>Remove “{e.title}”</li>
+            ))}
+          </ul>
+          <form action={applyEventUpdates} className="mt-4">
+            <ActionButton pendingText="Applying…">Apply updates</ActionButton>
+          </form>
+        </section>
+      )}
 
       <EventList
         title="Upcoming"

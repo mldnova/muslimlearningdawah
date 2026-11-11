@@ -41,6 +41,8 @@ export type SiteContent = {
   events: EventItem[];
   articles: Article[];
   settings: SiteSettings;
+  /** `eventUpdates.version` last applied from /admin */
+  eventUpdatesApplied?: string;
 };
 
 /** A message sent through one of the website forms; shown in /admin/inbox. */

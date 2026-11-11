@@ -14,6 +14,7 @@ export async function loadContent(): Promise<SiteContent> {
     events: stored?.events ?? seedEvents,
     articles: stored?.articles ?? seedArticles,
     settings: { ...defaultSettings, ...stored?.settings },
+    eventUpdatesApplied: stored?.eventUpdatesApplied,
   };
 }
 
