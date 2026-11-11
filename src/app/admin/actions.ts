@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 import { endSession, passwordMatches, requireAdmin, startSession } from "@/lib/auth";
 import { CONTENT_TAG, loadContent, todayInDmv } from "@/lib/content";
 import type { Article, EventItem, SiteContent, SiteSettings } from "@/lib/content-types";
-import { eventUpdates } from "@/lib/site-config";
 import {
   allowedImageTypes,
   deleteImage,
@@ -153,20 +152,6 @@ export async function deleteEvent(form: FormData) {
   if (!event) return;
   await save({ ...content, events: content.events.filter((e) => e.id !== event.id) });
   await deleteImage(event.image);
-}
-
-/** Applies the event changes listed in `eventUpdates` (site-config) to the saved events. */
-export async function applyEventUpdates() {
-  await requireAdmin();
-  const content = await loadContent();
-  const removed = new Set<string>(eventUpdates.remove);
-  const events = content.events.filter((e) => !removed.has(e.id));
-  for (const update of eventUpdates.upsert) {
-    const i = events.findIndex((e) => e.id === update.id);
-    if (i === -1) events.push(update);
-    else events[i] = { ...events[i], ...update };
-  }
-  await save({ ...content, events, eventUpdatesApplied: eventUpdates.version });
 }
 
 // ---------- Articles ----------

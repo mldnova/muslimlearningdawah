@@ -1,7 +1,7 @@
 import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import type { Article, EventItem, SiteContent } from "@/lib/content-types";
-import { defaultSettings, seedArticles, seedEvents } from "@/lib/site-config";
+import { defaultSettings, eventUpdates, seedArticles, seedEvents } from "@/lib/site-config";
 import { readStoredContent } from "@/lib/storage";
 
 /** Invalidated by every admin save, so the public site updates right away. */
@@ -10,12 +10,26 @@ export const CONTENT_TAG = "site-content";
 /** Uncached read — admin actions use this so they always edit the latest copy. */
 export async function loadContent(): Promise<SiteContent> {
   const stored = (await readStoredContent()) as Partial<SiteContent> | null;
+  const events = stored?.events ?? seedEvents;
   return {
-    events: stored?.events ?? seedEvents,
+    // Saved content predates the latest `eventUpdates`: apply them now. The next admin save keeps them.
+    events: stored?.events && stored.eventUpdatesApplied !== eventUpdates.version ? applyEventUpdates(events) : events,
     articles: stored?.articles ?? seedArticles,
     settings: { ...defaultSettings, ...stored?.settings },
-    eventUpdatesApplied: stored?.eventUpdatesApplied,
+    eventUpdatesApplied: eventUpdates.version,
   };
+}
+
+/** Adds, updates, and removes the events listed in `eventUpdates` (site-config). */
+function applyEventUpdates(saved: EventItem[]) {
+  const removed = new Set<string>(eventUpdates.remove);
+  const events = saved.filter((e) => !removed.has(e.id));
+  for (const update of eventUpdates.upsert) {
+    const i = events.findIndex((e) => e.id === update.id);
+    if (i === -1) events.push(update);
+    else events[i] = { ...events[i], ...update };
+  }
+  return events;
 }
 
 async function getContent() {
