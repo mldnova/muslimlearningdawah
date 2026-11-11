@@ -5,8 +5,11 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   async redirects() {
-    // The suggest page became "Book an Event" (with suggesting as a tab)
-    return [{ source: "/suggest-event", destination: "/book-event", permanent: true }];
+    // Suggesting an event is now a tab on the Collaborate page
+    return [
+      { source: "/suggest-event", destination: "/collaborate", permanent: true },
+      { source: "/book-event", destination: "/collaborate", permanent: true },
+    ];
   },
   images: {
     // Photos uploaded from /admin are stored in Vercel Blob

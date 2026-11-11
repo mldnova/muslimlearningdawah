@@ -255,18 +255,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Book or suggest */}
+      {/* Collaborate or suggest */}
       <section className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
-        <h2 className="font-serif text-3xl font-semibold text-navy-950">Bring MLD to your community</h2>
+        <h2 className="font-serif text-3xl font-semibold text-navy-950">Collaborate with MLD</h2>
         <p className="mx-auto mt-3 max-w-xl text-slate-600">
-          Book one of our speakers, a conference, or da&apos;wah training for your masjid, MSA, or organization — or
-          send us an idea for an event you&apos;d like to see, in shaa Allah.
+          Masjids, MSAs, and organizations can partner with us on conferences, programs, and da&apos;wah
+          training — or send us an idea for an event you&apos;d like to see, in shaa Allah.
         </p>
         <Link
-          href="/book-event"
+          href="/collaborate"
           className="mt-6 inline-flex rounded-full bg-navy-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy-700"
         >
-          Book or suggest an event
+          Collaborate or suggest an event
         </Link>
       </section>
 

@@ -300,7 +300,7 @@ export const navItems = [
   { href: "/events", label: "Events" },
   { href: "/speakers", label: "Speakers" },
   { href: "/articles", label: "Articles & Media" },
-  { href: "/book-event", label: "Book an Event" },
+  { href: "/collaborate", label: "Collaborate" },
   { href: "/contact", label: "Contact" },
   { href: "/donate", label: "Donate" },
 ] as const;

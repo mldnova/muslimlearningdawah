@@ -3,7 +3,7 @@ import { getArticles, getEvents } from "@/lib/content";
 import { site } from "@/lib/site-config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages = ["", "/about", "/events", "/articles", "/speakers", "/donate", "/book-event", "/contact"];
+  const pages = ["", "/about", "/events", "/articles", "/speakers", "/donate", "/collaborate", "/contact"];
   const [articles, { upcoming, past }] = await Promise.all([getArticles(), getEvents()]);
   return [
     ...pages.map((path) => ({ url: `${site.url}${path}` })),

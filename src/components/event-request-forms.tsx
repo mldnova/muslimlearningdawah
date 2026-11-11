@@ -4,13 +4,13 @@ import { useState } from "react";
 import { SiteForm } from "@/components/site-form";
 
 const tabs = [
-  { id: "book", label: "Book an event" },
+  { id: "collaborate", label: "Collaborate" },
   { id: "suggest", label: "Suggest an idea" },
 ] as const;
 
-/** Booking request and event idea forms, one at a time behind a toggle */
+/** Collaboration request and event idea forms, one at a time behind a toggle */
 export function EventRequestForms({ fallbackEmail }: { fallbackEmail: string }) {
-  const [tab, setTab] = useState<(typeof tabs)[number]["id"]>("book");
+  const [tab, setTab] = useState<(typeof tabs)[number]["id"]>("collaborate");
 
   return (
     <div className="mt-10">
@@ -32,21 +32,22 @@ export function EventRequestForms({ fallbackEmail }: { fallbackEmail: string }) 
       </div>
 
       <div role="tabpanel" className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        {tab === "book" ? (
+        {tab === "collaborate" ? (
           <>
             <p className="mb-6 text-sm leading-relaxed text-slate-600">
-              Bring an MLD speaker or program to your masjid, MSA, or community, anywhere in the country. Tell us
-              what you have in mind and our team will get back to you to plan it, in shaa Allah.
+              Masjids, MSAs, and organizations anywhere in the country can partner with MLD on conferences,
+              programs, da&apos;wah tables, and da&apos;wah training. Tell us what you have in mind and our team will
+              get back to you, in shaa Allah.
             </p>
             <SiteForm
-              key="book"
+              key="collaborate"
               kind="booking"
               fallbackEmail={fallbackEmail}
-              submitLabel="Send booking request"
-              successMessage="JazakAllah khair — we received your booking request and will reach out soon to plan the details, in shaa Allah."
+              submitLabel="Send collaboration request"
+              successMessage="JazakAllah khair — we received your request and will reach out soon to talk it through, in shaa Allah."
               fields={[
                 { name: "name", label: "Your name", required: true },
-                { name: "organization", label: "Masjid, MSA, or organization", placeholder: "Optional" },
+                { name: "organization", label: "Masjid, MSA, or organization", required: true },
                 { name: "email", label: "Email", type: "email", required: true },
                 { name: "phone", label: "Phone (optional)", type: "tel" },
                 {
@@ -64,7 +65,6 @@ export function EventRequestForms({ fallbackEmail }: { fallbackEmail: string }) 
                     "Other",
                   ],
                 },
-                { name: "speaker", label: "Speaker you'd like (optional)", placeholder: "e.g. Ustadh Rubeellion Mansoor" },
                 { name: "date", label: "Preferred date(s)", required: true, placeholder: "e.g. Saturday, March 14, or any weekend in April" },
                 { name: "location", label: "City and venue", required: true, placeholder: "e.g. Fairfax, VA — Hawa Center" },
                 {
@@ -75,10 +75,11 @@ export function EventRequestForms({ fallbackEmail }: { fallbackEmail: string }) 
                 },
                 {
                   name: "details",
-                  label: "Anything else we should know",
+                  label: "What would you like to collaborate on?",
                   type: "textarea",
                   rows: 5,
-                  placeholder: "Topic ideas, audience, budget, travel, timing…",
+                  required: true,
+                  placeholder: "The event or program you have in mind, who it's for, and how you'd like to work together…",
                 },
               ]}
             />
